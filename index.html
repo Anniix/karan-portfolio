@@ -1,0 +1,1221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Karan Gupta | Visual Strategist & Motion Architect</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg: #050508;
+            --bg2: #0a0a10;
+            --white: #ffffff;
+            --dim: #6b7280;
+            --dim2: #9ca3af;
+            --accent: #7c3aed;
+            --accent2: #06b6d4;
+            --accent3: #10b981;
+            --gold: #f59e0b;
+            --glass: rgba(124,58,237,0.04);
+            --border: rgba(124,58,237,0.12);
+            --border2: rgba(124,58,237,0.22);
+            --insta: linear-gradient(135deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);
+            --ease: cubic-bezier(0.16,1,0.3,1);
+            --grad: linear-gradient(135deg, var(--accent), var(--accent2));
+        }
+
+        *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+        html { scroll-behavior: smooth; }
+        body {
+            background: var(--bg);
+            color: var(--white);
+            font-family: 'DM Sans', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* ─── Noise texture overlay ─── */
+        body::before {
+            content:'';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.3;
+        }
+
+        /* ─── Blobs ─── */
+        .blobs {
+            position: fixed; inset: 0;
+            pointer-events: none; z-index: 0;
+            overflow: hidden;
+        }
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(130px);
+            animation: drift 30s infinite alternate ease-in-out;
+        }
+        .b1 { width:700px;height:700px; background:rgba(124,58,237,0.09); top:-200px; left:-200px; }
+        .b2 { width:500px;height:500px; background:rgba(6,182,212,0.07); bottom:-100px; right:-100px; animation-delay:-10s; }
+        .b3 { width:400px;height:400px; background:rgba(16,185,129,0.05); top:40%; left:40%; animation-delay:-5s; }
+        @keyframes drift {
+            from { transform: translate(0,0) rotate(0deg); }
+            to { transform: translate(100px,80px) rotate(20deg); }
+        }
+
+        /* ─── Nav ─── */
+        nav {
+            position: fixed; top: 0; width: 100%;
+            z-index: 1000;
+            padding: 28px 0;
+            transition: all 0.5s var(--ease);
+        }
+        nav.scrolled {
+            padding: 16px 0;
+            background: rgba(5,5,8,0.88);
+            backdrop-filter: blur(30px);
+            border-bottom: 1px solid var(--border);
+        }
+        .nav-inner {
+            max-width: 1400px; margin: 0 auto; padding: 0 50px;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 28px;
+            letter-spacing: 3px;
+            text-decoration: none;
+            color: white;
+            display: flex; align-items: center; gap: 10px;
+        }
+        .logo-mark {
+            width: 32px; height: 32px;
+            background: var(--grad);
+            border-radius: 6px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 14px;
+            font-weight: 700;
+            transform: rotate(-8deg);
+            transition: transform 0.4s var(--ease);
+        }
+        .logo:hover .logo-mark { transform: rotate(0deg) scale(1.1); }
+
+        .nav-links {
+            display: flex; gap: 36px; align-items: center;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dim2);
+            font-size: 12px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: color 0.3s;
+            position: relative;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute; bottom: -4px; left: 0;
+            width: 0; height: 1px;
+            background: var(--accent);
+            transition: width 0.4s var(--ease);
+        }
+        .nav-links a:hover { color: white; }
+        .nav-links a:hover::after { width: 100%; }
+
+        .nav-cta {
+            padding: 12px 28px;
+            background: var(--accent);
+            color: white !important;
+            border-radius: 8px;
+            font-weight: 600 !important;
+            letter-spacing: 1px !important;
+            transition: all 0.4s var(--ease) !important;
+            position: relative;
+            overflow: hidden;
+        }
+        .nav-cta::after { display: none !important; }
+        .nav-cta:hover {
+            background: var(--accent2) !important;
+            color: white !important;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(124,58,237,0.4);
+        }
+
+        .insta-btn {
+            width: 38px; height: 38px;
+            border-radius: 10px;
+            background: var(--glass);
+            border: 1px solid var(--border2);
+            display: flex; align-items: center; justify-content: center;
+            color: var(--dim2);
+            text-decoration: none;
+            transition: all 0.4s var(--ease);
+        }
+        .insta-btn:hover {
+            background: var(--insta);
+            border-color: transparent;
+            color: white;
+            transform: scale(1.1) rotate(-5deg);
+        }
+        .insta-btn svg { width: 18px; height: 18px; }
+
+        .mobile-toggle { display: none; cursor: pointer; background: none; border: none; color: white; }
+
+        /* ─── Hero ─── */
+        .hero {
+            min-height: 100vh;
+            display: flex; align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding: 120px 0 80px;
+        }
+        .hero-inner {
+            max-width: 1400px; margin: 0 auto; padding: 0 50px;
+            position: relative; z-index: 2;
+        }
+
+        .hero-bg-text {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(120px, 18vw, 280px);
+            color: rgba(124,58,237,0.04);
+            white-space: nowrap;
+            pointer-events: none;
+            letter-spacing: 10px;
+            z-index: 1;
+            user-select: none;
+            animation: bgTextFlow 20s infinite alternate ease-in-out;
+        }
+
+        @keyframes bgTextFlow {
+            from { transform: translate(-52%, -50%); }
+            to { transform: translate(-48%, -50%); }
+        }
+
+        .hero-eyebrow {
+            display: inline-flex; align-items: center; gap: 12px;
+            padding: 10px 22px;
+            background: rgba(124,58,237,0.08);
+            border: 1px solid rgba(124,58,237,0.25);
+            border-radius: 100px;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: #a78bfa;
+            margin-bottom: 40px;
+            opacity: 0;
+            animation: fadeUp 0.8s 0.2s var(--ease) forwards;
+        }
+        .wave-hand {
+            display: inline-block;
+            animation: wave 2.5s ease-in-out infinite;
+            transform-origin: 70% 70%;
+        }
+        @keyframes wave {
+            0%,100% { transform: rotate(0deg); }
+            20% { transform: rotate(-15deg); }
+            40% { transform: rotate(10deg); }
+            60% { transform: rotate(-10deg); }
+            80% { transform: rotate(5deg); }
+        }
+
+        .hero-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(72px, 11vw, 160px);
+            line-height: 0.9;
+            letter-spacing: 2px;
+            margin-bottom: 32px;
+            opacity: 0;
+            animation: fadeUp 0.9s 0.35s var(--ease) forwards;
+        }
+        .hero-title .line1 { display: block; color: white; }
+        .hero-title .line2 {
+            display: block;
+            -webkit-text-stroke: 1px rgba(255,255,255,0.2);
+            color: transparent;
+        }
+        .hero-title .line3 {
+            display: block;
+            background: linear-gradient(90deg, var(--accent) 0%, var(--accent2) 50%, var(--accent3) 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradShift 4s linear infinite;
+        }
+        @keyframes gradShift { to { background-position: 200% center; } }
+
+        .hero-sub {
+            font-size: clamp(16px, 2vw, 20px);
+            color: var(--dim2);
+            max-width: 680px;
+            line-height: 1.7;
+            margin-bottom: 52px;
+            font-weight: 300;
+            opacity: 0;
+            animation: fadeUp 0.9s 0.5s var(--ease) forwards;
+        }
+        .hero-sub strong { color: white; font-weight: 500; }
+        .hero-sub em { color: #a78bfa; font-style: normal; font-weight: 600; }
+
+        .hero-ctas {
+            display: flex; gap: 16px; align-items: center; flex-wrap: wrap;
+            opacity: 0;
+            animation: fadeUp 0.9s 0.65s var(--ease) forwards;
+        }
+
+        .btn-fire {
+            padding: 18px 40px;
+            background: var(--accent);
+            color: white;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            display: flex; align-items: center; gap: 10px;
+            transition: all 0.4s var(--ease);
+            position: relative;
+            overflow: hidden;
+            animation: pulseBtn 3s infinite;
+        }
+        
+        @keyframes pulseBtn {
+            0% { box-shadow: 0 0 0 0 rgba(124,58,237,0.4); }
+            70% { box-shadow: 0 0 0 15px rgba(124,58,237,0); }
+            100% { box-shadow: 0 0 0 0 rgba(124,58,237,0); }
+        }
+
+        .btn-fire::before {
+            content: '';
+            position: absolute; inset: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.15), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .btn-fire:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 20px 50px rgba(124,58,237,0.45); background: #6d28d9; }
+        .btn-fire:hover::before { opacity: 1; }
+
+        .btn-ghost {
+            padding: 17px 36px;
+            background: transparent;
+            color: white;
+            border: 1px solid var(--border2);
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 15px;
+            display: flex; align-items: center; gap: 10px;
+            transition: all 0.4s var(--ease);
+        }
+        .btn-ghost:hover { border-color: var(--accent2); background: rgba(6,182,212,0.06); transform: translateY(-3px) scale(1.02); }
+
+        .hero-insta-pill {
+            display: flex; align-items: center; gap: 10px;
+            padding: 10px 20px;
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            color: var(--dim2);
+            text-decoration: none;
+            font-size: 13px;
+            transition: all 0.4s var(--ease);
+        }
+        .hero-insta-pill:hover {
+            background: rgba(220,39,67,0.08);
+            border-color: rgba(220,39,67,0.3);
+            color: white;
+            transform: translateX(5px);
+        }
+        .insta-icon-grad {
+            width: 28px; height: 28px;
+            border-radius: 8px;
+            background: var(--insta);
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+        }
+        .insta-icon-grad svg { width: 15px; height: 15px; color: white; }
+
+        .hero-stats {
+            display: flex; gap: 50px; flex-wrap: wrap;
+            margin-top: 72px;
+            padding-top: 40px;
+            border-top: 1px solid var(--border);
+            opacity: 0;
+            animation: fadeUp 0.9s 0.8s var(--ease) forwards;
+        }
+        .stat { transition: transform 0.4s var(--ease); }
+        .stat:hover { transform: translateY(-5px); }
+        .stat-num {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 48px;
+            letter-spacing: 1px;
+            background: var(--grad);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1;
+        }
+        .stat-label { font-size: 12px; color: var(--dim); text-transform: uppercase; letter-spacing: 1.5px; margin-top: 4px; }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ─── Section Base ─── */
+        .section { padding: 140px 0; position: relative; z-index: 2; }
+        .wrap { max-width: 1400px; margin: 0 auto; padding: 0 50px; }
+
+        .section-tag {
+            display: inline-flex; align-items: center; gap: 10px;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent2);
+            margin-bottom: 20px;
+        }
+        .tag-line { width: 30px; height: 1px; background: var(--accent2); }
+
+        .section-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(48px, 6vw, 88px);
+            line-height: 0.95;
+            letter-spacing: 2px;
+            margin-bottom: 24px;
+        }
+
+        /* Reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.9s var(--ease);
+        }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        /* ─── Marquee strip ─── */
+        .marquee-wrap {
+            overflow: hidden;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            padding: 20px 0;
+            background: rgba(124,58,237,0.02);
+            position: relative; z-index: 2;
+        }
+        .marquee-track {
+            display: flex;
+            gap: 0;
+            width: max-content;
+            animation: marquee 20s linear infinite;
+        }
+        .marquee-item {
+            padding: 0 40px;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 20px;
+            letter-spacing: 3px;
+            color: var(--dim);
+            white-space: nowrap;
+            display: flex; align-items: center; gap: 20px;
+            transition: color 0.3s;
+        }
+        .marquee-item:hover { color: white; }
+        .marquee-dot { width: 6px; height: 6px; background: var(--accent2); border-radius: 50%; flex-shrink: 0; }
+        @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+        /* ─── About ─── */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+        .about-body p {
+            font-size: 18px;
+            color: var(--dim2);
+            line-height: 1.8;
+            margin-bottom: 24px;
+            font-weight: 300;
+        }
+        .about-body p strong { color: white; font-weight: 500; }
+        .about-body p em { color: #a78bfa; font-style: normal; font-weight: 600; }
+
+        .about-card {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 50px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s var(--ease);
+        }
+        .about-card::before {
+            content: '';
+            position: absolute;
+            top: -100%; left: -100%;
+            width: 300%; height: 300%;
+            background: conic-gradient(from 0deg, transparent, rgba(124,58,237,0.04), transparent);
+            animation: rotate 10s linear infinite;
+        }
+        @keyframes rotate { to { transform: rotate(360deg); } }
+        .about-card:hover { border-color: rgba(124,58,237,0.3); transform: translateY(-10px) scale(1.02); box-shadow: 0 30px 60px -20px rgba(0,0,0,0.5); }
+
+        .card-icon { font-size: 52px; margin-bottom: 24px; display: block; animation: floatEmoji 3s infinite ease-in-out; }
+        @keyframes floatEmoji {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .about-card h4 {
+            font-family: 'Syne', sans-serif;
+            font-size: 26px;
+            font-weight: 800;
+            margin-bottom: 16px;
+            color: var(--accent2);
+        }
+        .about-card p { font-size: 16px; color: var(--dim2); line-height: 1.7; }
+        .status-chip {
+            display: inline-flex; align-items: center; gap: 8px;
+            margin-top: 24px;
+            padding: 8px 16px;
+            background: rgba(16,185,129,0.08);
+            border: 1px solid rgba(16,185,129,0.2);
+            border-radius: 100px;
+            font-size: 12px;
+            color: #10b981;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+        .live-dot {
+            width: 7px; height: 7px;
+            background: #10b981;
+            border-radius: 50%;
+            animation: livePulse 1.8s infinite;
+            flex-shrink: 0;
+        }
+        @keyframes livePulse {
+            0%,100% { box-shadow: 0 0 0 0 rgba(16,185,129,0.6); }
+            50% { box-shadow: 0 0 0 6px rgba(16,185,129,0); }
+        }
+
+        /* ─── Skills ─── */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2px;
+        }
+        .skill-tile {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            padding: 48px 36px;
+            transition: all 0.5s var(--ease);
+            position: relative;
+            overflow: hidden;
+            cursor: default;
+        }
+        .skill-tile::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(124,58,237,0.07), transparent);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+        .skill-tile:hover { border-color: rgba(124,58,237,0.3); z-index: 1; transform: scale(1.05); }
+        .skill-tile:hover::after { opacity: 1; }
+        .skill-tile:hover .skill-num { color: rgba(124,58,237,0.3); transform: scale(1.1); }
+
+        .skill-num {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 72px;
+            color: rgba(255,255,255,0.03);
+            line-height: 1;
+            transition: all 0.4s;
+            position: absolute;
+            top: 20px; right: 24px;
+        }
+        .skill-icon {
+            width: 52px; height: 52px;
+            background: rgba(124,58,237,0.08);
+            border-radius: 14px;
+            display: flex; align-items: center; justify-content: center;
+            margin-bottom: 28px;
+            transition: all 0.4s var(--ease);
+            border: 1px solid var(--border);
+        }
+        .skill-tile:hover .skill-icon {
+            background: var(--grad);
+            transform: scale(1.1) rotate(8deg);
+            border-color: transparent;
+            box-shadow: 0 10px 20px rgba(124,58,237,0.3);
+        }
+        .skill-icon svg { width: 24px; height: 24px; color: #a78bfa; transition: color 0.3s; }
+        .skill-tile:hover .skill-icon svg { color: white; }
+
+        .skill-tile h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: 20px; font-weight: 700;
+            margin-bottom: 12px;
+        }
+        .skill-tile p { font-size: 14px; color: var(--dim); line-height: 1.6; }
+        .skill-tools {
+            display: flex; flex-wrap: wrap; gap: 6px; margin-top: 20px;
+        }
+        .tool-tag {
+            padding: 4px 10px;
+            background: rgba(124,58,237,0.06);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            font-size: 11px;
+            color: #a78bfa;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            transition: all 0.3s;
+        }
+        .skill-tile:hover .tool-tag { background: rgba(124,58,237,0.15); border-color: var(--accent); }
+
+        /* ─── Services ─── */
+        .services-list { display: flex; flex-direction: column; }
+        .service-row {
+            display: flex; align-items: center;
+            padding: 40px 0;
+            border-bottom: 1px solid var(--border);
+            gap: 40px;
+            transition: all 0.4s var(--ease);
+            cursor: default;
+        }
+        .service-row:hover { padding-left: 20px; background: rgba(124,58,237,0.02); }
+        .service-row:hover .service-name { color: #a78bfa; transform: translateX(10px); }
+        .service-num {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 20px;
+            color: var(--dim);
+            width: 50px;
+            flex-shrink: 0;
+        }
+        .service-name {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(22px, 4vw, 52px);
+            font-weight: 700;
+            flex: 1;
+            transition: all 0.4s var(--ease);
+        }
+        .service-desc { font-size: 14px; color: var(--dim); max-width: 300px; line-height: 1.6; transition: color 0.3s; }
+        .service-row:hover .service-desc { color: var(--dim2); }
+        .service-price {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 22px;
+            color: var(--accent2);
+            flex-shrink: 0;
+            text-align: right;
+        }
+
+        /* ─── Contact ─── */
+        .contact-wrap {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+        .contact-headline {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(60px, 8vw, 110px);
+            line-height: 0.9;
+            letter-spacing: 2px;
+        }
+        .contact-headline .fire {
+            background: var(--grad);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+            transition: transform 0.5s var(--ease);
+        }
+        .contact-headline:hover .fire { transform: skewX(-5deg) scale(1.05); }
+
+        .contact-cards { display: flex; flex-direction: column; gap: 16px; }
+        .contact-item {
+            display: flex; align-items: center; gap: 20px;
+            padding: 24px 28px;
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            text-decoration: none;
+            color: white;
+            transition: all 0.4s var(--ease);
+        }
+        .contact-item:hover { border-color: var(--accent); background: rgba(124,58,237,0.06); transform: translateX(10px) scale(1.02); }
+        .contact-item:hover .contact-item-icon { transform: scale(1.1) rotate(-5deg); }
+
+        .contact-item-icon {
+            width: 52px; height: 52px;
+            border-radius: 14px;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+            transition: transform 0.4s var(--ease);
+        }
+        .contact-item-icon svg { width: 24px; height: 24px; }
+
+        .ci-mail .contact-item-icon { background: rgba(6,182,212,0.1); color: var(--accent2); border: 1px solid rgba(6,182,212,0.2); }
+        .ci-wa .contact-item-icon { background: rgba(16,185,129,0.1); color: var(--accent3); border: 1px solid rgba(16,185,129,0.2); }
+        .ci-insta .contact-item-icon { background: rgba(220,39,67,0.12); border: 1px solid rgba(220,39,67,0.2); }
+        .ci-insta .contact-item-icon.active-grad { background: var(--insta); color: white; border-color: transparent; }
+
+        .contact-item-title { font-weight: 600; font-size: 16px; }
+        .contact-item-sub { font-size: 13px; color: var(--dim); margin-top: 2px; }
+
+        /* ─── Footer ─── */
+        .footer {
+            padding: 80px 0 40px;
+            background: rgba(124,58,237,0.01);
+            border-top: 1px solid var(--border);
+            position: relative; z-index: 2;
+        }
+        .footer-top {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1.5fr;
+            gap: 60px;
+            padding-bottom: 60px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 40px;
+        }
+        .footer-brand p { font-size: 14px; color: var(--dim); line-height: 1.7; margin-top: 16px; max-width: 300px; }
+        .footer-col-title {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: white;
+            margin-bottom: 20px;
+        }
+        .footer-col ul { list-style: none; }
+        .footer-col ul li { margin-bottom: 12px; }
+        .footer-col ul li a {
+            color: var(--dim);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+            display: inline-block;
+        }
+        .footer-col ul li a:hover { color: #a78bfa; transform: translateX(5px); }
+
+        .newsletter-input-wrap {
+            display: flex;
+            background: rgba(124,58,237,0.04);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 16px;
+            transition: all 0.3s;
+        }
+        .newsletter-input-wrap:focus-within { border-color: var(--accent); box-shadow: 0 0 15px rgba(124,58,237,0.2); }
+        .newsletter-input-wrap input {
+            flex: 1; padding: 14px 16px;
+            background: transparent; border: none;
+            color: white; outline: none;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 14px;
+        }
+        .newsletter-input-wrap input::placeholder { color: var(--dim); }
+        .newsletter-input-wrap button {
+            padding: 0 20px;
+            background: var(--accent);
+            border: none; color: white;
+            font-weight: 700; font-size: 13px;
+            cursor: pointer;
+            transition: background 0.3s;
+            font-family: 'DM Sans', sans-serif;
+        }
+        .newsletter-input-wrap button:hover { background: var(--accent2); }
+
+        .footer-bottom {
+            display: flex; justify-content: space-between; align-items: center;
+            color: var(--dim);
+            font-size: 13px;
+        }
+        .social-links { display: flex; gap: 10px; }
+        .social-link {
+            width: 40px; height: 40px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: center;
+            color: var(--dim2);
+            text-decoration: none;
+            transition: all 0.4s var(--ease);
+        }
+        .social-link svg { width: 18px; height: 18px; }
+        .social-link:hover { border-color: var(--accent); color: #a78bfa; transform: translateY(-3px) scale(1.1); }
+        .social-link.sl-insta:hover { background: var(--insta); border-color: transparent; color: white; }
+        .social-link.sl-wa:hover { background: #10b981; border-color: transparent; color: white; }
+        .social-link.sl-mail:hover { background: var(--accent2); border-color: transparent; color: white; }
+
+        /* ─── Full-screen menu ─── */
+        .menu-fullscreen {
+            position: fixed; inset: 0;
+            background: #050508;
+            z-index: 4000;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            gap: 0;
+            transform: translateY(-100%);
+            transition: transform 0.7s var(--ease);
+        }
+        .menu-fullscreen.open { transform: translateY(0); }
+        .menu-close {
+            position: absolute; top: 36px; right: 48px;
+            background: none; border: none;
+            color: white; cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .menu-close:hover { transform: rotate(90deg); }
+        .menu-fullscreen a {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(52px, 10vw, 100px);
+            color: rgba(255,255,255,0.12);
+            text-decoration: none;
+            letter-spacing: 3px;
+            transition: all 0.4s;
+            line-height: 1.1;
+        }
+        .menu-fullscreen a:hover { color: white; padding-left: 30px; transform: scale(1.05); }
+        .menu-insta-link { display: flex; align-items: center; gap: 14px; margin-top: 40px; }
+
+        /* ─── Mobile ─── */
+        @media (max-width: 1024px) {
+            .skills-grid { grid-template-columns: repeat(2,1fr); }
+            .footer-top { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 768px) {
+            .wrap { padding: 0 20px; }
+            .nav-inner { padding: 0 20px; }
+            .nav-links { display: none; }
+            .mobile-toggle { display: block; }
+            .hero-inner { padding: 0 20px; }
+            .hero { padding: 100px 0 60px; }
+            .hero-stats { gap: 24px; }
+            .hero-stats .stat { min-width: 80px; }
+            .about-grid { grid-template-columns: 1fr; gap: 50px; }
+            .skills-grid { grid-template-columns: 1fr 1fr; gap: 2px; }
+            .skill-tile { padding: 32px 24px; }
+            .service-desc { display: none; }
+            .service-name { font-size: 22px; }
+            .service-row { gap: 16px; padding: 28px 0; }
+            .contact-wrap { grid-template-columns: 1fr; gap: 50px; }
+            .footer-top { grid-template-columns: 1fr; gap: 40px; }
+            .footer-bottom { flex-direction: column; gap: 20px; text-align: center; }
+            .section { padding: 80px 0; }
+            .about-card { padding: 32px; }
+            .hero-eyebrow { font-size: 12px; padding: 8px 16px; }
+            .nav-inner { padding: 0 16px; }
+        }
+        @media (max-width: 480px) {
+            .skills-grid { grid-template-columns: 1fr; }
+            .hero-ctas { flex-direction: column; align-items: flex-start; }
+            .btn-fire, .btn-ghost { width: 100%; justify-content: center; }
+            .hero-insta-pill { align-self: flex-start; }
+            .footer-top { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="blobs">
+        <div class="blob b1"></div>
+        <div class="blob b2"></div>
+        <div class="blob b3"></div>
+    </div>
+
+    <!-- Full Screen Menu -->
+    <div class="menu-fullscreen" id="menuFull">
+        <button class="menu-close" id="menuClose">
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+        <a href="#home" class="m-link">HOME</a>
+        <a href="#about" class="m-link">ABOUT</a>
+        <a href="#skills" class="m-link">SKILLS</a>
+        <a href="#contact" class="m-link">CONTACT</a>
+        <div class="menu-insta-link">
+            <div class="insta-icon-grad" style="width:36px;height:36px;border-radius:10px;">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </div>
+            <a href="https://instagram.com/.karan_0" target="_blank" style="font-size:18px; color:var(--dim2); letter-spacing:2px; font-family:'DM Sans'; font-weight:500;">@.karan_0</a>
+        </div>
+    </div>
+
+    <!-- NAV -->
+    <nav id="nav">
+        <div class="nav-inner">
+            <a href="#home" class="logo">
+                <div class="logo-mark">KG</div>
+                KARAN GUPTA
+            </a>
+            <div class="nav-links">
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#skills">Skills</a>
+                <a href="https://instagram.com/.karan_0" target="_blank" class="insta-btn" title="@.karan_0">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+                </a>
+                <a href="#contact" class="nav-cta">Let's Talk →</a>
+            </div>
+            <button class="mobile-toggle" id="menuOpen" aria-label="Open menu">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- ═══ HERO ═══ -->
+    <section class="hero" id="home">
+        <div class="hero-bg-text">VISUAL</div>
+        <div class="hero-inner">
+            <div class="hero-eyebrow">
+                <span class="wave-hand">👋</span>
+                Hii, I am Karan Gupta
+            </div>
+            <h1 class="hero-title">
+                <span class="line1">YOUR BRAND</span>
+                <span class="line2">DESERVES TO</span>
+                <span class="line3">DOMINATE.</span>
+            </h1>
+            <p class="hero-sub">
+                Most brands blend in. Mine <strong>stand out</strong>. I craft visuals so sharp they <em>stop the scroll</em>, so compelling they <strong>drive conversions</strong> — before your competitor even loads.
+            </p>
+            <div class="hero-ctas">
+                <a href="#contact" class="btn-fire">
+                    Start a Project
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+                </a>
+                <a href="#about" class="btn-ghost">
+                    Know More
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                </a>
+                <a href="https://instagram.com/.karan_0" target="_blank" class="hero-insta-pill">
+                    <div class="insta-icon-grad">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+                    </div>
+                    @.karan_0 — Follow the Process
+                </a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat">
+                    <div class="stat-num">5+</div>
+                    <div class="stat-label">Projects Delivered</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-num">85%</div>
+                    <div class="stat-label">Avg. Retention Rate</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-num">3X</div>
+                    <div class="stat-label">Client ROI Average</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-num">24h</div>
+                    <div class="stat-label">Response Time</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ MARQUEE ═══ -->
+    <div class="marquee-wrap">
+        <div class="marquee-track">
+            <div class="marquee-item"><span class="marquee-dot"></span> Video Editing</div>
+            <div class="marquee-item"><span class="marquee-dot"></span> Motion Graphics</div>
+            <div class="marquee-item"><span class="marquee-dot"></span> Graphic Design</div>
+            <div class="marquee-item"><span class="marquee-dot"></span> After Effects</div>
+            <div class="marquee-item"><span class="marquee-dot"></span> Premiere Pro</div>
+            <div class="marquee-item"><span class="marquee-dot"></span> Photoshop</div>
+            <div class="marquee-item"><span class="marquee-dot"></span> Visual Strategy</div>
+            <div class="marquee-item"><span class="marquee-dot"></span> 3D Animation</div>
+            <div class="marquee-item"><span class="marquee-dot"></span> High Retention Content</div>
+            <div class="marquee-item"><span class="marquee-dot"></span> Autodesk Maya</div>
+            <div class="marquee-item"><span class="marquee-dot"></span> Video Editing</div>
+            <div class="marquee-item"><span class="marquee-dot"></span> Motion Graphics</div>
+            <div class="marquee-item"><span class="marquee-dot"></span> Graphic Design</div>
+            <div class="marquee-item"><span class="marquee-dot"></span> After Effects</div>
+            <div class="marquee-item"><span class="marquee-dot"></span> Premiere Pro</div>
+            <div class="marquee-item"><span class="marquee-dot"></span> Photoshop</div>
+            <div class="marquee-item"><span class="marquee-dot"></span> Visual Strategy</div>
+            <div class="marquee-item"><span class="marquee-dot"></span> 3D Animation</div>
+            <div class="marquee-item"><span class="marquee-dot"></span> High Retention Content</div>
+            <div class="marquee-item"><span class="marquee-dot"></span> Autodesk Maya</div>
+        </div>
+    </div>
+
+    <!-- ═══ ABOUT ═══ -->
+    <section class="section" id="about">
+        <div class="wrap">
+            <div class="about-grid">
+                <div class="reveal">
+                    <div class="section-tag"><div class="tag-line"></div> About Me</div>
+                    <h2 class="section-title">CREATIVE<br>STORYTELLER<br>BASED IN <span style="color:var(--accent)">MUMBAI</span></h2>
+                    <div class="about-body">
+                        <p>I am a creative <strong>Graphic Designer</strong> and <strong>Video Editor</strong> based in Mumbai with a growing passion for visual storytelling. With hands-on experience in the industry, I specialize in crafting engaging designs and dynamic video content.</p>
+                        <p>I am currently studying at <em>Frameboxx 2.0</em> and <em>Navneet College (Mumbai Central)</em>. Dedicated to continuous learning and pushing my creative boundaries, I am actively expanding my skill set by diving into the world of <strong>3D Animation</strong>.</p>
+                        <div style="margin-top: 36px;">
+                            <a href="#contact" style="display:inline-flex; align-items:center; gap:12px; text-decoration:none; color:white; font-weight:600; border-bottom:1px solid var(--border); padding-bottom:12px; transition:all 0.3s;" onmouseover="this.style.borderColor='var(--accent)'; this.style.color='#a78bfa'" onmouseout="this.style.borderColor='var(--border)'; this.style.color='white'">
+                                Let's build something together →
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="reveal" style="transition-delay: 0.2s;">
+                    <div class="about-card">
+                        <span class="card-icon">🚀</span>
+                        <h4>Mastering the 3D Frontier</h4>
+                        <p>Currently mastering <strong>Autodesk Maya</strong> to unlock next-gen product cinematography and hyperrealistic 3D environments. This isn't just learning — it's building the future.</p>
+                        <div class="status-chip">
+                            <span class="live-dot"></span>
+                            3D Animation Mode — Progress Unlocking Weekly
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ SKILLS ═══ -->
+    <section class="section" id="skills" style="padding-top: 0;">
+        <div class="wrap">
+            <div style="text-align:center; margin-bottom: 70px;">
+                <div class="section-tag reveal" style="justify-content:center;"><div class="tag-line"></div> Arsenal <div class="tag-line"></div></div>
+                <h2 class="section-title reveal" style="letter-spacing:3px;">SKILLS & SOFTWARE</h2>
+                <p class="reveal" style="color:var(--dim); max-width:500px; margin:0 auto; font-size:16px;">Core expertise in industry-standard creative tools.</p>
+            </div>
+        </div>
+        <div class="skills-grid">
+            <div class="skill-tile reveal">
+                <span class="skill-num">01</span>
+                <div class="skill-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r=".5"/><circle cx="17.5" cy="10.5" r=".5"/><circle cx="8.5" cy="7.5" r=".5"/><circle cx="6.5" cy="12.5" r=".5"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg>
+                </div>
+                <h3>Graphic Design</h3>
+                <p>Crafting bold brand identities and high-impact static assets that capture attention instantly.</p>
+                <div class="skill-tools">
+                    <span class="tool-tag">Adobe Photoshop</span>
+                    <span class="tool-tag">Adobe Illustrator</span>
+                </div>
+            </div>
+            <div class="skill-tile reveal" style="transition-delay:0.1s;">
+                <span class="skill-num">02</span>
+                <div class="skill-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 8-6 4 6 4V8z"/><rect x="2" y="6" width="14" height="12" rx="2" ry="2"/></svg>
+                </div>
+                <h3>Video Editing</h3>
+                <p>Engaging video content engineered for storytelling and high-retention social media experiences.</p>
+                <div class="skill-tools">
+                    <span class="tool-tag">Adobe Premiere Pro</span>
+                    <span class="tool-tag">Color Grading</span>
+                </div>
+            </div>
+            <div class="skill-tile reveal" style="transition-delay:0.2s;">
+                <span class="skill-num">03</span>
+                <div class="skill-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                </div>
+                <h3>Motion Graphics</h3>
+                <p>Cinematic animations and VFX that bring designs to life and elevate the brand's visual language.</p>
+                <div class="skill-tools">
+                    <span class="tool-tag">Adobe After Effects</span>
+                    <span class="tool-tag">Motion Design</span>
+                </div>
+            </div>
+            <div class="skill-tile reveal" style="transition-delay:0.3s;">
+                <span class="skill-num">04</span>
+                <div class="skill-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+                </div>
+                <h3>3D Animation</h3>
+                <p>Currently deep-diving into the world of 3D to create immersive and realistic visual experiences.</p>
+                <div class="skill-tools">
+                    <span class="tool-tag">Autodesk Maya</span>
+                    <span class="tool-tag">Learning</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ SERVICES ═══ -->
+    <section class="section" id="services">
+        <div class="wrap">
+            <div class="reveal" style="margin-bottom:60px;">
+                <div class="section-tag"><div class="tag-line"></div> What I Do</div>
+                <h2 class="section-title">SERVICES</h2>
+            </div>
+            <div class="services-list reveal">
+                <div class="service-row">
+                    <span class="service-num">01</span>
+                    <span class="service-name">Video Editing & Reels</span>
+                    <span class="service-desc">Short-form content engineered for maximum retention and virality</span>
+                    <span class="service-price">From ₹2,999</span>
+                </div>
+                <div class="service-row">
+                    <span class="service-num">02</span>
+                    <span class="service-name">Motion Graphics</span>
+                    <span class="service-desc">After Effects animations that make brands look cinematic</span>
+                    <span class="service-price">From ₹4,999</span>
+                </div>
+                <div class="service-row">
+                    <span class="service-num">03</span>
+                    <span class="service-name">Graphic & Brand Design</span>
+                    <span class="service-desc">Complete visual systems — logos, palettes, and social media assets</span>
+                    <span class="service-price">From ₹8,999</span>
+                </div>
+                <div class="service-row">
+                    <span class="service-num">04</span>
+                    <span class="service-name">3D Visualization</span>
+                    <span class="service-desc">Product renders and environments via Autodesk Maya (Coming Soon)</span>
+                    <span class="service-price">On Request</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ CONTACT ═══ -->
+    <section class="section" id="contact">
+        <div class="wrap">
+            <div class="contact-wrap">
+                <div class="reveal">
+                    <div class="section-tag"><div class="tag-line"></div> Get In Touch</div>
+                    <h2 class="contact-headline">
+                        LET'S<br>BUILD<br>SOMETHING<br><span class="fire">ICONIC.</span>
+                    </h2>
+                    <p style="color:var(--dim); margin-top:24px; font-size:16px; max-width:360px; line-height:1.7;">Stop settling for average visuals. You're one conversation away from content that actually performs.</p>
+                </div>
+                <div class="contact-cards reveal" style="transition-delay: 0.2s;">
+                    <a href="mailto:karangupta6447@gmail.com" class="contact-item ci-mail">
+                        <div class="contact-item-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                        </div>
+                        <div>
+                            <div class="contact-item-title">Email Inquiry</div>
+                            <div class="contact-item-sub">karangupta6447@gmail.com</div>
+                        </div>
+                        <svg style="margin-left:auto; color:var(--dim)" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </a>
+                    <a href="https://wa.me/919529493052" target="_blank" class="contact-item ci-wa">
+                        <div class="contact-item-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                        </div>
+                        <div>
+                            <div class="contact-item-title">WhatsApp — Fast Response</div>
+                            <div class="contact-item-sub">Typically replies within 2 hours</div>
+                        </div>
+                        <svg style="margin-left:auto; color:var(--dim)" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </a>
+                    <a href="https://instagram.com/.karan_0" target="_blank" class="contact-item ci-insta">
+                        <div class="contact-item-icon active-grad">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+                        </div>
+                        <div>
+                            <div class="contact-item-title">Instagram DM</div>
+                            <div class="contact-item-sub">@.karan_0 — Daily updates & portfolio</div>
+                        </div>
+                        <svg style="margin-left:auto; color:var(--dim)" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ FOOTER ═══ -->
+    <footer class="footer">
+        <div class="wrap">
+            <div class="footer-top reveal">
+                <div class="footer-brand">
+                    <a href="#home" class="logo">
+                        <div class="logo-mark">KG</div>
+                        KARAN GUPTA
+                    </a>
+                    <p>Visual Strategist. Motion Architect. Making high-performance brands impossible to ignore through elite content production.</p>
+                    <div style="display:flex; gap:10px; margin-top:24px; flex-wrap:wrap;">
+                        <a href="https://instagram.com/.karan_0" target="_blank" class="social-link sl-insta" title="Instagram">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+                        </a>
+                        <a href="https://wa.me/919529493052" target="_blank" class="social-link sl-wa" title="WhatsApp">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                        </a>
+                        <a href="mailto:karangupta6447@gmail.com" class="social-link sl-mail" title="Email">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <div class="footer-col-title">Navigate</div>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#skills">Skills</a></li>
+                        <li><a href="#services">Services</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <div class="footer-col-title">Contact</div>
+                    <ul>
+                        <li><a href="mailto:karangupta6447@gmail.com">Email Me</a></li>
+                        <li><a href="https://wa.me/919529493052">WhatsApp</a></li>
+                        <li><a href="https://instagram.com/.karan_0" target="_blank">Instagram</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <div class="footer-col-title">Weekly Tips</div>
+                    <p style="font-size:13px; color:var(--dim); line-height:1.6;">Join 10+ creators getting my design insights and behind-the-scenes breakdowns.</p>
+                    <div class="newsletter-input-wrap">
+                        <input type="email" placeholder="your@email.com">
+                        <button>→</button>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom reveal">
+                <p>© 2026 Karan Gupta. Design the future of visual content.</p>
+                <div class="social-links">
+                    <a href="https://instagram.com/.karan_0" target="_blank" class="social-link sl-insta">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+                    </a>
+                    <a href="https://wa.me/919529493052" target="_blank" class="social-link sl-wa">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                    </a>
+                    <a href="mailto:karangupta6447@gmail.com" class="social-link sl-mail">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ─── Navbar ───
+        const nav = document.getElementById('nav');
+        window.addEventListener('scroll', () => {
+            nav.classList.toggle('scrolled', window.scrollY > 80);
+        });
+
+        // ─── Mobile Menu ───
+        const menuFull = document.getElementById('menuFull');
+        document.getElementById('menuOpen').addEventListener('click', () => menuFull.classList.add('open'));
+        document.getElementById('menuClose').addEventListener('click', () => menuFull.classList.remove('open'));
+        document.querySelectorAll('.m-link').forEach(l => l.addEventListener('click', () => menuFull.classList.remove('open')));
+
+        // ─── Reveal on scroll ───
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+        }, { threshold: 0.08 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // ─── Blob subtle parallax (desktop only) ───
+        if (window.innerWidth > 768) {
+            document.addEventListener('mousemove', e => {
+                const cx = (e.clientX / window.innerWidth - 0.5) * 2;
+                const cy = (e.clientY / window.innerHeight - 0.5) * 2;
+                document.querySelectorAll('.blob').forEach((b, i) => {
+                    const speed = (i + 1) * 20;
+                    b.style.transform = `translate(${cx * speed}px, ${cy * speed}px)`;
+                });
+            });
+        }
+    </script>
+</body>
+</html>
